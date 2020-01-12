@@ -1,0 +1,295 @@
+\begin{table}
+	\caption{Etapes de l'étude}
+    \label{table:etapestwitter}
+    \begin{tabularx}{\linewidth}{
+        |K{0.10\linewidth}
+        |K{0.20\linewidth}
+        |L
+        |L
+        |}
+    	\hline
+    	\textbf{Section} & \textbf{Etape} & \textbf{Analyses réalisées} & \textbf{Objectifs} \\ \hline
+
+        \ref{twitter:collecte}
+        & \multicolumn{3}{|l|}{\textbf{\textit{1 - Collecte des données}}} \\ \hline
+
+        \ref{twitter:analysegenerale}
+        & \multicolumn{3}{|l|}{\textbf{\textit{2 - Approche générale du corpus}}} \\ \hline
+
+            \ref{twitter:commu}
+            & Etude des communautés
+            & Analyse des réseaux
+            & Identifier les communautés d'OESS sur le réseau social
+            \\ \hline
+
+            \ref{twitter:attention}
+            & Statistiques multivariées
+            & Régressions linéaires multiples
+            & Etudier le niveau d'attention obtenu par les tweets dans le contexte de l'ESS en France
+            \\ \hline
+
+            \ref{twitter:placediscours}
+            & Place du discours environnemental
+            & Tests statistique de comparaison de moyennes
+            & Déterminer la place de l'environnement dans le discours des différents types d'organisations
+            \\ \hline
+
+
+        \ref{twitter:exploration}
+        & \multicolumn{3}{|l|}{\textbf{\textit{3 - Exploration de texte}}} \\ \hline
+
+            \ref{twitter:thematiques}
+            & Extraction des thématiques principales
+            & Classification automatique non supervisée
+            & Identifier les principales thématiques environnementales traitées par les utilisateurs
+            \\ \hline
+
+            \ref{twitter:strategies}
+            & Etude des stratégies rhétoriques
+            &  Classification automatique  supervisée ;\newline Classification analytique ;\newline Analyses factorielles des correspondances
+            & Comparer les stratégies rhétoriques des différents types d'organisations
+            \\ \hline
+
+            \ref{twitter:perf}
+            & Performance des tweets selon la stratégie
+            & Tests statistiques paramétriques et non paramétriques
+            & Déterminer si la stratégie rhétorique impacte le niveau d'attention obtenue par les tweets
+            \\ \hline
+
+    \end{tabularx}
+\end{table}
+
+
+
+\subsection{Collecte des données}
+    \label{twitter:collecte}
+    La collecte des données est faite en deux étapes. La première vise à la constitution d’une liste d’utilisateurs appartenant au champ de l’ESS et la seconde télécharge les tweets de ces utilisateurs (avec les méta-données associées). Pour interroger la base de données de Twitter (API) et extraire ces informations, nous avons écrit des scripts dans le langage informatique Python\footnote{Les scripts ont été regroupés dans un programme disponible en accès public: \url{https://github.com/newbisebi/twitSearch}}. \\
+
+    L’échantillon est constitué de comptes Twitter d’OESS. Une première liste a été constituée à partir de sources externes (CNCRES, ACP, data.gouv). Des organisations référencées dans ces sources et disposant d’un compte Twitter ont été intégrées au panel. La liste est ensuite complétée par une recherche interne par mots-clés dans l’interface Twitter, ainsi qu’en utilisant la fonctionnalité « suggestions » proposée par le réseau social. Les critères d’intégration ou de non intégration des comptes à l’échantillon sont détaillés en annexe. Nous avons collecté les informations associées à chaque utilisateur et avons déterminé manuellement pour chacun le type d’organisation et le caractère environnemental (Tableau \ref{table:donneesutilisateurs}). Sept types d’organisations sont retenus : mutuelle, coopérative, association, fondation, entreprise sociale, fédération et organismes de représentation (structures visant à rassembler d’autres OESS ou qui ont un rôle de représentation) et la catégorie autre, qui rassemble les incubateurs dédiés à l’ESS et les comptes Twitter correspondant à des marques ou des évènements en lien avec l’ESS. Le caractère environnemental indique si la mission principale est liée à la préservation de l’environnement. \\
+
+
+    \begin{table}[h]
+        \caption{Données relatives aux comptes d'utilisateurs}
+        \label{table:donneesutilisateurs}
+        \begin{tabularx}{\linewidth}{|l|X|}
+            \hline
+            \textbf{Nom} & \textbf{Description} \\ \hline
+        \multicolumn{2}{|l|}{\textbf{\textit{Données collectées sur Twitter}}} \\ \hline
+            Nom utilisateur &	Nom d’identification de l’utilisateur (différent du nom affiché) \\ \hline
+            Id utilisateur &	Numéro unique d’identification de l’utilisateur  \\ \hline
+            Description	 & Biographie de l’utilisateur sur son profil \\ \hline
+            Nombre d’abonnements &	Nombre de comptes auxquels l’utilisateur est abonné (‘friends’) \\ \hline
+            Nombre d’abonnés &	Nombre de comptes abonnés à l’utilisateur (‘followers’) \\ \hline
+            Nombre de tweets &	Nombre de tweets publiés par l’utilisateur (hors tweets supprimés) \\ \hline
+        \multicolumn{2}{|l|}{\textbf{\textit{Données ajoutées a posteriori}}} \\ \hline
+            Catégorie du compte	& Catégorisation de l’utilisateur en fonction du statut ou de la forme de l’organisation  \\ \hline
+            Organisation environnementale	& Variable booléenne : ‘vrai’ si la mission principale de l’entreprise est directement liée à la préservation de l’environnement  \\ \hline
+        \end{tabularx}
+    \end{table}
+
+    Pour chacun des utilisateurs, nous avons extrait les tweets postés avant le 30 juin 2017 (les plus anciens tweets datent de 2008). Les critères d’extractions ne retiennent que les tweets originaux (c'est-à-dire que les tweets republiés ou retweets sont exclus) et en français (cette indication peut toutefois être incorrecte et certains tweets en anglais ont été collectés). Les méta-données extraites sont présentées dans le Tableau \ref{table:donneestweets}.
+
+
+    \begin{table}[h]
+        \caption{Données relatives aux tweets}
+        \label{table:donneestweets}
+            \begin{tabularx}{\linewidth}{|l|L|}
+                \hline
+                \textbf{Nom} & \textbf{Description} \\ \hline
+                Id tweet&	Numéro unique d’identification du tweet \\ \hline
+                Nom utilisateur&	Nom de l’utilisateur ayant posté le tweet \\ \hline
+                Id utilisateur&	Identifiant de l’utilisateur ayant posté le tweet \\ \hline
+                Date&	Date exacte de publication du tweet au format AAAA-MM-JJ hh:mm:ss.000000 \\ \hline
+                Année&	Année de publication du tweet (format AAAA) \\ \hline
+                Mois&	Mois de publication du tweet (format MM) \\ \hline
+                Texte&	Texte complet du tweet \\ \hline
+                Hashtags&	Mots clés utilisés dans le message (précédés de ‘\#’) \\ \hline
+                Nombre favoris*	&Nombre de fois où le tweet a été mis en favori \\ \hline
+                Nombre retweets*&	Nombre de fois où le tweet a été partagé \\ \hline
+                Id mentions	&Identifiant numérique des utilisateurs mentionnés dans le tweet \\ \hline
+                Nom mentions&	Nom des utilisateurs mentionnés dans le tweet \\ \hline
+                 \multicolumn{2}{K{0.95\linewidth}}{\footnotesize{*Ces données sont susceptibles d’évoluer dans le temps. Elles ne sont donc pas représentatives pour les tweets récents et ont onc été mise à jour un mois après la fin de la collecte pour garantir une certaine fiabilité.}}
+            \end{tabularx}
+    \end{table}
+
+    Pour chaque tweet, un algorithme détermine s’il concerne des thématiques en lien avec l’environnement. Il vérifie si le tweet comporte un mot ayant la racine ‘environn’ ou ‘écolo’, ou s’il contient un mot clé (‘hashtag’) relatif à l’environnement. Pour cela, nous avons extraits les 3 000 hashtags les plus fréquents dans les tweets ; ceux identifiés comme liés à l’environnement ont été intégrés à l’algorithme.
+
+    L’étude se focalise sur les tweets ayant un caractère environnemental. Cette sélection conduit à réduire considérablement le nombre de tweets étudiés. En effet, parmi l’ensemble des contenus publiés par les utilisateurs de l’ESS, seule une faible proportion concerne l’environnement. Ceci s’explique d’une part par le fait que seule une minorité d’\eess a une mission environnementale, et d’autre part parce que toutes sont confrontées à des sujets très variés. L’environnement ne constitue donc qu’une partie de leur discours. Cette apparente perte d’information n’est pas dommageable et correspond aux pratiques observées dans la littérature. En effet, la nature de la source de données (Twitter) fait qu’il est plus simple de collecter un ensemble de données très large et de le réduire ensuite. Ainsi, pour des études similaires, \textcite{kwon2015spatiotemporal} ne codent que 5 \% des données collectées, \textcite{stefanone2015image} analysent 290 images collectées parmi 15 840 tweets et \textcite{xu2014twitter} limitent leur analyse à 3 319 tweets sur 125 907 collectés.
+
+\subsection{Analyse générale du corpus}
+    \label{twitter:analysegenerale}
+    Une première phase de l'étude s'intéresse au corpus dans son ensemble. Elle porte donc sur la totalité des comptes d'utilisateurs et des tweets collectés, avant la suppression des tweets ne parlant pas d'environnement. Dans un premier temps, une visualisation des communautés d'utilisateurs est proposée. Dans un second temps, nous menons une approche statistique du niveau d'attention obtenus par les tweets. Finalement, nous nous intéressons à la place du discours environnemental dans le corpus.
+
+    \subsubsection{Etude des communautés}
+        \label{twitter:commu}
+        La fonction première des réseaux sociaux est de lier entre eux les utilisateurs. L’étude des réseaux s’intéressent donc aux relations et aux interactions entre les utilisateurs de ces réseaux. A partir des relations d’abonnement (un utilisateur s’abonne aux tweets d’un autre) réciproques ou non et des interactions directes (mention d’un autre utilisateur dans un tweet), nous identifions les communautés qui se créent. Le logiciel Gephi permet de visualiser ces communautés et les interactions entre elles. On cherche ici à découvrir comment les acteurs de l’ESS s’organisent et interagissent sur le réseau social Twitter.
+
+    \subsubsection{Niveau d'attention}
+        \label{twitter:attention}
+
+        \textcite{guo2017speaking} ont recours à des statistiques multivariées pour prédire l’audience d’un tweet d’une organisation du secteur non lucratif sur Twitter en fonction de son utilisation du réseau. En particulier, les auteurs obtiennent les résultats suivants : \\
+        R1 – Le niveau d’attention reçu par un compte est associé positivement au nombre d’abonnés. \\
+        R2 – Le niveau d’attention reçu est associé positivement avec le nombre de tweets publiés. \\
+        R3 – Le nombre de retweets est associé négativement avec le nombre de réponses à d’autres utilisateurs, mais le nombre de favoris est associé positivement avec le nombre de réponses. \\
+        R4 – Le niveau d’attention reçu par un compte est associé positivement avec le nombre de hashtags utilisés.\\
+        R5 – le niveau d’attention n’est pas significativement lié au nombre de tweets mentionnant d’autres utilisateurs.\\
+
+        Nous menons une étude similaire afin de tester si les mêmes résultats sont obtenus dans un contexte national différent (la France VS les États-Unis) et avec un périmètre plus large (l’ESS VS le secteur non lucratif). Notre design est inspiré de celui de Guo et Saxton, mais n'est pas reproduit à l'identique. Contrairement aux auteurs, nous ne prenons pas en compte la temporalité : les données sont une agrégation de l’ensemble de la période. Nous faisons ceci afin de garantir l'indépendance des modalités de la variable expliquée (chacune correspond à un compte différent) \parencite{field2009discovering}. En outre, pour tenir compte de la variété des \eess étudiées, nous nous appuyons sur un échantillon substantiellement plus important (910 649 tweets VS 219 915).
+        Le Tableau \ref{table:10comparaisonguo} compare les modalités de l’étude avec celles de Guo et Saxton. Deux régressions sont effectuées, avec en variable expliquée le nombre de retweets, puis le nombre de favoris.
+
+        \begin{table}
+        \caption{Comparaison du design avec Guo et Saxton (2017)}
+        \label{table:10comparaisonguo}
+            \begin{tabularx}{\linewidth}{|>{\bfseries}p{3cm}|X|X|}
+             \hline
+             & \textbf{\textcite{guo2017speaking}} & \textbf{Présente étude} \\ \hline
+             Périmètre	& Secteur non lucratif (nonprofits) &	ESS \\ \hline
+
+            Unité \newline d’analyse	& Compte Twitter pour un mois donné (chaque compte est représenté 12 fois)	& Compte Twitter sur la globalité de la période \\ \hline
+
+            Effectif&	219 915 tweets - 145 organisations (N=1679*)	& 910 649 tweets - 1 100 organisations (N=1 100) \\ \hline
+
+            \multirow{2}{=}{Variables expliquées	}
+                &Nombre de retweets & Nombre total de retweets  \\
+                &Nombre de favoris & Nombre total de favoris \\ \hline
+
+            \multirow{10}{=}{Variables explicatives}
+                &Nombre de tweets & Nombre de tweets \\
+                &Nombre de réponses & Nombre de réponses \\
+                &Nombre d’abonnés & Nombre d’abonnés \\
+                &Nombre de hashtags dans le tweet & Nombre de tweets avec au moins un hashtag \\
+                &Nombre de tweets avec au moins une mention & Nombre de tweets avec au moins une mention \\
+                &Nombre de retweets d’autres utilisateurs & Nombre d’abonnements  \\
+                &Nombre de tweets avec photos &  \\
+                &Nombre de tweets avec lien vers une photo &  \\
+                &Nombre de tweets avec lien vers une vidéo & \\
+                &Nombre de tweets avec au moins une URL & \\ \hline
+
+            \multirow{2}{=}{Variables de contrôle	}
+                &Taille de l’organisation & Type d’entreprise \\
+                &Age de l’organisation&\\ \hline
+
+            \multirow{2}{=}{Type de régression	}
+                &Moindres carrés ordinaires & Moindres carrés ordinaires\\
+                &Effets fixes&\\ \hline
+
+            \end{tabularx}
+            \footnotesize
+                * \textit{145 entreprises sur 12 mois devrait donner N = 1 740, mais certaines n'ont pas twitté pendant certains mois. Ici, notre design diffère en ceci qu'on ne prend pas en compte la temporalité : chaque entreprise correspond à un individu unique dans la régression. }
+        \end{table}
+
+    \subsubsection{Place du discours environnemental}
+    \label{twitter:placediscours}
+        Pour terminer cette approche générique du corpus, une comparaison des différentes catégories d'entreprises est menée à l'aide de tests statistiques. D'une part, nous comparons le pourcentage moyen de tweets relatifs à l'environnement entre les organisations dont l'activité est liée à l'écologie et celles dont l'activité est autre. D'autre part, nous comparons le pourcentage moyen de tweets relatifs à l'environnement entre les différentes catégories d'organisations. La variable étudiée est la moyenne du pourcentage de tweets environnementaux calculé pour chaque organisation. Par conséquent, ce taux est impacté par la proportion d'entreprises à caractère environnemental dans l'échantillon. Pour neutraliser cet impact, les tests de comparaison sont reproduits après élimination des entreprises environnementales. Ceci permet de mesurer la place de l'environnement dans la communication des organisations dont la mission n'est pas à caractère environnemental. En effet, comme l'a montré la revue de la littérature, les motivations à communiquer sur ces enjeux sont multiples. Si les entreprises à mission environnementale ont des raisons évidentes de communiquer sur ces thématiques, les autres organisations ont également des motivations à s'emparer du sujet.
+
+        Des tests non paramétriques sont utilisés pour tenir compte de la non-normalité des distributions.
+
+\subsection{L'exploration de texte}
+\label{twitter:exploration}
+    Une définition courante de l’exploration de texte est celle de \textcite[][p. 1]{kao2010natural} \citit{la découverte et l’extraction de connaissances intéressantes et non triviales à partir de textes non structurés}. Comme nous l’avons vu dans la partie précédente, les données issues de Twitter sont assez structurées et s’accompagnent de nombreuses données quantitatives. Toutefois, l’apport de l’exploration de texte est évident pour l’étude du contenu même des tweets. Elle permet de donner du sens aux textes lorsque le volume est trop important pour permettre un codage ou même une lecture flottante \parencite{kobayashi2018text}. Cette étude se limite au contenu en lien avec les problématiques environnementales. Seuls les tweets identifiés comme ayant trait à l'écologie sont conservés. Cette phase est menée en trois temps. En premier lieu, l'usage d'algorithmes de classification non supervisée permet de faire émerger les principales thématiques abordées dans le corpus. En second lieu, deux classifications supervisées et analytiques permettent de distinguer plusieurs stratégies rhétoriques. Enfin, nous mesurons la performance obtenue par les tweets en fonction des stratégies de communication.
+
+
+    \subsubsection{Extraction des thématiques principales}
+    \label{twitter:thematiques}
+        L’extraction de thématiques s’appuie sur des modèles probabilistes qui permettent de générer automatiquement des catégories à partir des mots du texte (Kobayashi et al., 2018). Selon ces auteurs, la méthode LDA (latent Dirichlet allocation) est la plus communément utilisée. Nous comparons les résultats de cet algorithme avec ceux du modèle NMF (Non-Negative Matrix Factorization). Ces deux procédés sont mis en œuvre sous Python.
+        Ces méthodes sont non supervisées, c'est-à-dire qu’elles ne nécessitent pas de phase d’apprentissage. Toutefois, elles nécessitent la détermination a priori du nombre de thématiques à extraire. Nous avons donc procédé par itération avec différentes valeurs jusqu’à obtenir des catégories ayant du sens.
+
+        % \todo[inline]{\textcite{ross2013common} =>  étudient les topics }
+
+    \subsubsection{Étude des stratégies rhétoriques}
+    \label{twitter:strategies}
+        \paragraph{Étude du sentiment et de l'objectivité} \ \\
+            A l’inverse de l’extraction de thématiques, la classification automatique est une méthode supervisée qui nécessite une phase d’entraînement du programme. Le chercheur doit fournir à l’algorithme des données pré-codées, afin \cit{d'apprendre} à la machine à reproduire ce codage. Une application courante de cette méthode est l’analyse des sentiments qui permet de déterminer si un contenu à une tonalité positive ou négative. 430 tweets extraits aléatoirement ont été codés manuellement selon deux critères : le sentiment \parencite{solomon2011private} et l’objectivité \parencite{waldron2016how}. Le premier critère détermine si la question environnementale est abordée à travers les causes, les risques et les conséquences (sentiment négatif) ou bien sous l’angle des alternatives et des opportunités qui en découlent (sentiment positif). L’objectivité traite de la façon dont le tweet est \cit{cadré} (framed) et indique si le contenu se veut factuel, appuyé sur des chiffres, des études, ou s’il transmet plutôt une opinion ou un objet de débat (Nisbet, 2009). Cette approche est similaire à celle utilisée par \textcite{cho2010language}, qui utilisent un logiciel, \textit{DICTION} pour étudier l'optimisme et la conviction dans les rapports \rse des entreprises.
+            Le modèle est appliqué à l’aide de l’algorithme Naives-Bayes implémenté en Python. Suite à la phase d’apprentissage, le programme attribue à chaque tweet une valeur positive ou négative et objective ou subjective.
+            Ceci permet de déterminer d’une part les stratégies rhétoriques les plus employées et par qui, et d’évaluer celles qui conduisent au meilleur niveau d’attention d’un tweet (mesuré par le nombre de retweets et le nombre de favoris). La comparaison de la performance des stratégies est faite à l’aide de tests statistiques de comparaisons de moyennes. \\
+
+            Cette analyse est complétée par une AFC qui vise à mettre en relation les utilisateurs d’une part, et les catégories de discours employées d’autre part. Pour cela, une table de contingence est constituée sous Python. Elle indique pour chaque utilisateur (en lignes) le nombre de tweets correspondants aux quatre catégories de discours (en colonnes) : objectif, subjectif, positif, négatif. L’analyse factorielle est menée sous R à partir de cette table de contingence et aboutit à la production d’une carte factorielle. L’analyse s’intéressera particulièrement aux valeurs les plus significatives, c'est-à-dire aux utilisateurs fortement caractérisés par une des stratégies rhétoriques.
+
+    \paragraph{Étude du cadrage du discours} \ \\
+
+        La classification menée à cette étape vise à comprendre plus précisément le sens des messages diffusés sur le réseau. L’analyse lexicale permet d’étudier isolément les mots du corpus, c'est-à-dire détachés de leur contexte. Elle repose sur la quantification des formes lexicales. L’étude s’appuie spécifiquement sur les hashtags, c'est-à-dire les éléments du tweet mis en avant par l’émetteur du message (47.3 \% du total des tweets collectés contiennent des hashtags). L’étude utilise les hashtags pour déterminer le cadre rhétorique dans lequel s’inscrit un message. Les cadres renvoient à la façon dont le discours donne du sens à son objet. Comme le souligne \textcite{nisbet2009communicating}, toute information s’inscrit dans un cadre donné. L'auteur identifie huit cadres utilisés dans la communication sur le changement climatique, qui peuvent s’appliquer à l’ensemble des enjeux écologiques. Le  tableau \ref{table:6} présente ces cadres et précise les modalités d’opérationnalisation.
+
+
+
+        \begin{landscape}
+            \begin{spacing}{1}
+            \begin{small}
+            \begin{longtable}{
+            |K{0.18\linewidth}
+            |K{0.38\linewidth}
+            |K{0.40\linewidth}
+            |}
+            \caption{Typologie des cadres du discours}
+            \label{table:6} \\
+                \hline
+                \textbf{Cadre} & \textbf{Définition \parencite{nisbet2009communicating} \newline Frames define science-related issue as…} & \textbf{Opérationnalisation}\\ \hline
+                \endfirsthead
+                \hline
+                \textbf{Cadre} & \textbf{Définition \parencite{nisbet2009communicating}} & \textbf{Opérationnalisation}\\ \hline
+                \endhead
+                \hline
+            Progrès Social
+            &A means of improving quality of life or solving problems; alternative interpretation as a way to be in harmony with nature instead of mastering it.
+            &Le cadre est élargi aux hashtags qui renvoient à des questions d’ordre sociétal
+            \\ \hline
+
+            Développement économique et compétitivité
+            &An economic investment; market benefit or risk; or a point of local, national, or global competitiveness.
+            &Le cadre intègre tous les hashtags qui renvoient à des dimensions d’économie, d’emploi, de compétitivité ou à la notion de marché
+            \\ \hline
+
+            Moralité et éthique
+            &A matter of right or wrong; or of respect or disrespect for limits, thresholds, or boundaries.
+            &Le cadre intègre tous les hashtags renvoyant à la morale, à des valeurs sociales, de respect ou de solidarité.
+            \\ \hline
+
+            Incertitude scientifique et technique
+            &A matter of expert understanding or consensus; a debate over what is known versus unknown; or peer-reviewed, confirmed knowledge versus hype or alarmism.
+            &Hashtags renvoyant plus généralement à de questions techniques et scientifiques, sans prise de position explicite
+            \\ \hline
+
+            Boîte de Pandore, Monstre de Frankenstein et ‘Sauve-qui-peut’
+            &A need for precaution or action in face of possible catastrophe and out-of-control consequences; or alternatively as fatalism, where there is no way to avoid the consequences or chosen path.
+            &Hashtags renvoyant à une dimension dramatique, focalisée sur les dangers et les risques liés à la non prise en compte de l’environnement, ainsi que les conséquences déjà observées
+            \\ \hline
+
+            Responsabilité publique et gouvernance
+            &Research or policy either in the public interest or serving special interests, emphasizing issues of control, transparency, participation, responsiveness, or ownership; or debate over proper use of science and expertise in decisionmaking (“politicization”).
+            &Hashtags renvoyant à la gouvernance aussi bien au niveau des entreprises que des institutions publiques, ainsi que les hashtags renvoyant à une responsabilité partagée, citoyenne
+            \\ \hline
+
+            Alternatives et compromis
+            &A third way between conflicting or polarized views or options.
+            &Hashtags renvoyant à des alternatives, des exemples d’innovations, ou plus généralement un changement, une transition
+            \\ \hline
+
+            Conflits et stratégies
+            &A game among elites, such as who is winning or losing the debate; or a battle of personalities or groups (usually a journalist-driven interpretation).
+            &Hashtags renvoyant à des acteurs du débat public, à des lieux d’échange et de constitution de stratégies, ou à des prises de position claires
+            \\ \hline
+
+
+            \end{longtable}
+            \end{small}
+            \end{spacing}
+        \end{landscape}
+
+        A l'inverse des classifications précédentes, la classification n'est pas réalisée par des algorithmes, mais par une règle d'affectation mise en place par le chercheur. Elle permet donc une lecture plus fine du corpus, permettant d'apporter des résultats plus précis, mais implique une part plus grande de subjectivité.
+
+        Comme précédemment, cette classification donne lieu à une analyse factorielle des correspondances (AFC) qui permet de confronter les différents modèles d’entreprises de l’ESS avec les cadres utilisés.
+
+    \subsubsection{Etude de la performance des tweets }
+        \label{twitter:perf}
+
+        La performance d'un tweet, c'est-à-dire le niveau d'attention obtenu par le tweet, est généralement mesurée par deux indicateurs : le nombre de retweets et le nombre de favoris \parencite{guo2017speaking}. Nous utilisons ces deux indicateurs pour comparer la performance des tweets en fonction de la rhétorique (sentiment, objectivité, catégories de discours). A nouveau, des tests paramétriques (test T) et non paramétriques sont effectués.
+
+        Un biais possible des deux indicateurs utilisé est que le nombre de retweets et de favoris est fortement influencé par le nombre d'abonnés d'un compte. Ceci risque de réduire la validité des résultats. Pour éliminer cet effet, nous utilisons un indicateur composite qui s'appuie à la fois sur le nombre de retweets et le nombre de favoris, mais rapportés au nombre d'abonnés. Il est calculé selon la formule suivante : \\
+
+            \begin{center}
+                $Engagement = \dfrac{Nombre\ de\ retweets + Nombre\ de \ favoris}{Nombre\ d'abonnés} \times 1 000$ \\
+            \end{center}
+
+        Le facteur 1 000 utilisé dans le calcul n'a pas d'impact sur l'analyse, celle-ci visant à comparer le ratio entre les entreprises. Il est ajouté, de manière arbitraire, à des fins de lisibilité et pour corriger l'écart d'ordre de grandeur entre le nombre de retweets et de favoris et le nombre d'abonnés. Dans l'échantillon étudié, le nombre moyen de retweets est de 3,36 et celui de favoris de 3,18, alors que les utilisateurs ont en moyenne 6 448,18 abonnés (soit environ 2 000 fois plus).
+
+
+Cette recherche explore en profondeur un corpus de données important, en mobilisant des méthodes automatiques ou semi-automatiques. Ces méthodes sont adaptées à un grand volume de données et permettent de faire émerger des tendances. Cependant, la principale limite est qu'elle implique une forte distance par rapport au contenu et ne permet pas une compréhension fine du discours. En outre, cette étude porte sur le discours, la communication des organisations. Dans la partie suivante, nous présentons une seconde recherche qui vient compléter la première à l'aide d'une approche qualitative.

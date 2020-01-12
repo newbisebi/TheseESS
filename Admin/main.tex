@@ -1,0 +1,257 @@
+%----------------------------------------------------------------------------------------
+%	CLASSE ET COMMANDES PREALABLES
+%----------------------------------------------------------------------------------------
+
+\documentclass{Classe_Seba}
+
+\addbibresource{biblio.bib}
+\usepackage{color, colortbl}
+
+\input{Admin/acro.tex}
+
+
+%%%%%% FORMAT DES CHAPITRES
+\makeatletter
+\def\thickhrulefill{\leavevmode \leaders \hrule height 1ex \hfill \kern \z@} 
+\def\@makechapterhead#1{%
+  {\parindent \z@ \raggedright
+    \reset@font
+    \hrule
+    \vspace*{10\p@}%
+    \par
+    \Large \scshape \@chapapp{} \Huge\bfseries \thechapter
+    \par\nobreak
+    \vspace*{10\p@}%
+    \hrule
+    \par
+    \vspace*{1\p@}%
+    \hrule
+    %\vskip 40\p@
+    \vspace*{20\p@}
+    \Huge \bfseries #1\par\nobreak
+    \vskip 70\p@
+  }}
+\makeatother
+
+%%% FORMAT DES PARTIES
+
+
+\begin{document}
+\DeclareRobustCommand{\disambiguate}[3]{#3}
+\dominitoc      %%Construit les tables des matières de chaque chapitre
+
+%----------------------------------------------------------------------------------------
+%	FRONTMATTER - PREAMBULES
+%----------------------------------------------------------------------------------------
+
+\frontmatter
+
+    %% page de titre
+    		%\chead{}
+    		\pdfbookmark[0]{Page de titre}{titre}
+    		\input{tex/Divers/titre.tex}
+    %% Préambule (citation)
+            \newpage\null\thispagestyle{empty}\newpage
+            \input{tex/Divers/preambule.tex}
+            % \whitepage
+    %% remerciement
+    		\chapter*{Remerciements}
+    		\markboth{Remerciements}{}
+    		\addstarredchapter{Remerciements}
+    		%\addcontentsline{toc}{chapter}{Remerciements}
+    		\input{tex/Divers/remercie}
+
+
+    %% TABLE DES MATIERES Synthétique
+    		\newpage
+    		\pdfbookmark[0]{Table des matières}{tdm}
+    		\shorttoc{Table des matières}{1} %package pour les tables des matières distinctes
+    		\newpage
+    %% LISTE DES TABLES
+            \addstarredchapter{Liste des tableaux}
+    		%\addcontentsline{toc}{chapter}{Liste des tableaux}
+    		\listoftables
+    		\newpage
+
+    %% LISTE DES FIGURES
+            \addstarredchapter{Liste des figures}
+          %\addcontentsline{toc}{chapter}{Liste des figures}
+    		\listoffigures
+    		\newpage
+
+    %% LOE (liste de encadrés)
+            \addstarredchapter{Liste des encadrés}
+            %\addcontentsline{toc}{chapter}{Liste des encadrés}
+            \listof{encadre}{Liste des Encadrés}
+            \newpage
+
+
+    %% Table des acronymes
+    		\chapter*{Liste des acronymes}
+    		 \addstarredchapter{Liste des acronymes}
+    		%\addcontentsline{toc}{chapter}{Liste des acronymes}
+    		%\printglossary
+    		\printacronyms[heading=none]
+    		\newpage
+
+
+
+%----------------------------------------------------------------------------------------
+%	MAINMATTER - CORPS DE LA THESE
+%----------------------------------------------------------------------------------------
+
+    \mainmatter
+            \addstarredchapter{INTRODUCTION GENERALE}
+    		\part*{Introduction générale}
+    		    \markboth{Introduction générale}{}
+        		\input{tex/transitions/introGenerale.tex}
+
+        \whitepage
+        \part{L'ESS : une économie sociale et écologique ?}
+            \label{partie:1}
+
+            \chapter{L'Économie Sociale et Solidaire}
+                \label{chapitre:ess}
+                \minitoc \newpage
+                \input{tex/Theorie/ESS.tex}
+            \chapter*{Conclusion du chapitre \ref{chapitre:ess}}
+                \addstarredchapter{Conclusion du chapitre \ref{chapitre:ess}}
+                \input{tex/conclus_chaps/ccl_chap_1.tex}
+
+            \chapter{Prise en compte de l'environnement dans les organisations : du discours aux actes}
+                \label{chapitre:ei}
+                \minitoc \newpage
+                \input{tex/Theorie/envir.tex}
+            \chapter*{Conclusion du chapitre \ref{chapitre:ei}}
+                \addstarredchapter{Conclusion du chapitre \ref{chapitre:ei}}
+                \input{tex/conclus_chaps/ccl_chap_2.tex}
+
+        \whitepage
+    	\part{Contexte scientifique de la thèse}
+    	    \label{partie:methodo}
+
+            \chapter{Cadrage de la recherche : posture épistémologique et éthique}
+                \label{chapitre:demarche}
+                \minitoc \newpage
+                \input{tex/methode/Epistemo.tex}
+                \input{tex/methode/ethique.tex}
+            \chapter*{Conclusion du chapitre \ref{chapitre:demarche}}
+                \addstarredchapter{Conclusion du chapitre \ref{chapitre:demarche}}
+                \input{tex/conclus_chaps/ccl_chap_3.tex}
+
+            \chapter{Cadre méthodologique}
+                \label{chapitre:methodes}
+                \minitoc \newpage
+                \input{tex/methode/demarche.tex}
+                \section{Communication environnementale des EESS sur Twitter}
+                    \input{tex/EtudeTwitter/Twitter.tex}
+                    \input{tex/EtudeTwitter/Methodo.tex}
+                \section{Leviers de l'action environnementale : étude de cas}
+                    \input{tex/EtudeQuali/methodo.tex}
+            \chapter*{Conclusion du chapitre \ref{chapitre:methodes}}
+                \addstarredchapter{Conclusion du chapitre \ref{chapitre:methodes}}
+                \input{tex/conclus_chaps/ccl_chap_4.tex}
+
+        \whitepage
+        \part{Partie empirique}
+            \label{partie:terrain}
+
+            \chapter{Communication environnementales des OESS sur Twitter}
+                \label{chapitre:twitter}
+                \minitoc \newpage
+                    \input{tex/EtudeTwitter/Resultats.tex}
+                    \input{tex/EtudeTwitter/discussion.tex}
+            \chapter*{Conclusion du chapitre \ref{chapitre:twitter}}
+                \addstarredchapter{Conclusion du chapitre \ref{chapitre:twitter}}
+                \input{tex/conclus_chaps/ccl_chap_5.tex}
+
+            \chapter{Mise en pratique de l'action environnementale dans l'ESS : étude de cas}
+                \label{chapitre:casess}
+                \minitoc \newpage
+                \input{tex/EtudeQuali/intro.tex}
+                \input{tex/EtudeQuali/prez_cas.tex}
+                \input{tex/EtudeQuali/resultats.tex}
+            \chapter*{Conclusion du chapitre \ref{chapitre:casess}}
+                \addstarredchapter{Conclusion du chapitre \ref{chapitre:casess}}
+                \input{tex/conclus_chaps/ccl_chap_6.tex}
+
+            \chapter{L'action environnementale dans l'ESS : perspectives théoriques et pratiques}
+                \label{chapitre:discussion}
+                \minitoc \newpage
+                \input{tex/discussion.tex}
+                \chapter*{Conclusion du chapitre \ref{chapitre:discussion}}
+                    \addstarredchapter{Conclusion du chapitre \ref{chapitre:discussion}}
+                    \input{tex/conclus_chaps/ccl_chap_7.tex}
+                    \newpage
+
+            \whitepage
+            \part*{Conclusion générale}
+            \addstarredchapter{CONCLUSION GENERALE}
+                 \markboth{Conclusion Générale}{}
+                \input{tex/transitions/ConcluGenerale.tex}
+                %\addcontentsline{toc}{chapter}{Conclusion générale}
+                \newpage
+
+
+
+%----------------------------------------------------------------------------------------
+%	BIBLIO et ANNEXES
+%----------------------------------------------------------------------------------------
+    %% Biblio
+           
+    		\renewcommand{\baselinestretch}{1}		%%Espacement simple pour la biblio
+    		\DeclareRobustCommand{\disambiguate}[3]{#1}
+    		\addcontentsline{toc}{chapter}{Bibliographie}
+    		\printbibliography
+            \newpage
+    %% Annexes
+        \whitepage
+        \appendix \makeatletter
+        \addtocontents{toc}{\protect\renewcommand\protect\cftchappresnum{\@chapapp\ }}
+        \makeatother
+
+        \begin{appendices}
+        \renewcommand{\cftchappresnum}{Annexe }
+        \renewcommand{\appendixpagename}{Annexes}
+        \renewcommand{\appendixname}{Annexe}
+        \renewcommand{\appendixtocname}{\Large \textsc Annexes}
+        \addappheadtotoc
+        \appendixpage
+
+          \chapter{Méthodologie détaillée}
+            \label{annexemethodo}
+            \input{tex/Annexes/methodotwitterdetail.tex}
+          \chapter{Questionnaire de recherche}
+            \input{tex/Annexes/questionnaire.tex}
+        \end{appendices}
+
+%----------------------------------------------------------------------------------------
+%	BACKMATTER - résumé et abstract
+%----------------------------------------------------------------------------------------
+
+\backmatter
+    %%Résumé et abstract
+    		\chapter*{Résumé}
+    		\markboth{Résumé}{}
+    		\addstarredchapter{Résumé}
+    		\input{tex/Divers/resume}
+    		
+    		%\addcontentsline{toc}{chapter}{Résumé}
+
+        %% abstract
+             
+    		\chapter*{Abstract}
+    		\markboth{Abstract}{}
+    		\addstarredchapter{Abstract}
+    		\input{tex/Divers/abstract}
+    		
+    		%\addcontentsline{toc}{chapter}{Abstract}
+
+    %% TABLE DES MATIERES détaillée
+    		\newpage
+    		%\chapter*{Table des matières détaillée}
+    		\addstarredchapter{Table des matières détaillée}
+    		%\addcontentsline{toc}{chapter}{Table des matières détaillée}
+    		\tableofcontents
+
+\end{document}

@@ -1,0 +1,173 @@
+
+La première étude exploratoire s’intéresse au contenu diffusé par des OESS sur un des réseaux sociaux les plus utilisés dans le monde, Twitter. Elle porte donc sur le discours tenu par les organisations sur un média public. Cette recherche s’inscrit dans le champ de l’exploration de données (\textit{data mining}) et plus particulièrement de l’exploration de texte (\textit{text mining}). A ce jour, de telles méthodes sont peu mobilisées dans le champ de la recherche en management \parencite{kobayashi2018text}. Le traitement de grands volumes de données est pourtant un enjeu considérable dans un domaine dans lequel la majorité des contenus ne sont pas ou peu structurés. Cette étude combine différentes méthodes afin d’avoir une approche originale des données.
+
+Dans un premier temps, nous présentons le réseau social Twitter et proposons une brève synthèse de l’utilisation qui en est faite dans la littérature académique. Nous expliquons ensuite de façon synthétique la démarche de collecte et d’analyse des données. Par souci de clarté, le détail de chacune des étapes de cette étude est donné dans l’annexe \ref{annexemethodo}.
+
+\subsection{Le réseau social Twitter : utilisation et recherche}
+    Depuis sa création, Twitter a suscité beaucoup d’intérêt, notamment dans le monde médiatique. Des chercheurs se sont également tournés vers ce réseau social comme objet d’étude en tant que tel, ou bien comme une source de données. L’ESS est largement représentée sur le réseau qui constitue donc une base de données mobilisable pour cette recherche. Non seulement le discours tenu sur Twitter nous informe sur l’émetteur, sur les thématiques auxquelles il accorde de l’importance et sur les stratégies qu’il adopte pour diffuser des idées, mais il peut également avoir un impact sur son audience. \textcite{gummerus2017ethical} montrent ainsi que l’implication dans une  \cit{communauté éthique} sur un réseau social en ligne entraîne une évolution du comportement de la personne impliquée – à condition qu’un management efficace de la communauté soit mis en place. \\
+
+    Dans cette partie, nous présentons les spécificités du réseau social Twitter et montrons comment il est utilisé dans la recherche académique.
+
+
+    \subsubsection{Présentation du réseau social Twitter}
+
+        Twitter est un réseau social en ligne ayant pour mission de \citit{donner à chacun le pouvoir de créer et de partager des idées et des informations instantanément et sans entraves}\footnote{\url{https://about.twitter.com/fr/company}}. Créé en 2006, il a connu une croissance très rapide du nombre d’inscrits, jusqu’à devenir un des réseaux les plus populaires au monde. L’inscription est gratuite et ouverte à tous, particuliers et organisations. Twitter revêt un caractère généraliste et permet d’échanger sur des sujets très divers comme \citit{la musique, les sports, la politique, l'actualité, les célébrités ou tout simplement les moments du quotidien}\footnote{\url{https://support.twitter.com/articles/314982\#}}.\\
+
+        L’utilisation de Twitter repose sur quelques fonctionnalités de base qui sont présentées ici. Cette section précise également le vocabulaire utilisé dans l’étude.
+
+        \paragraph{Comptes d’utilisateurs.}
+        L’utilisation de Twitter nécessite la création d’un compte. Celui-ci peut être public ou privé. Dans le premier cas, les messages diffusés à partir de ce compte sont visibles par tous les utilisateurs du réseau. Au contraire, les comptes privés ne sont accessibles que par des utilisateurs autorisés par le propriétaire du compte. L’usage de Twitter favorise les comptes publics : lors de la collecte des données (détaillée plus loin), seuls deux comptes privés ont été rencontrés pour 1125 comptes publics. L’utilisateur peut associer différents éléments à son compte : photo de profil, description, âge, langue, ville de résidence…
+        Un compte n’est pas obligatoirement associé à une personne physique : un compte peut appartenir à une organisation ou être dédié à un évènement particulier (festival, évènement sportif…). Une personne ou une organisation peut détenir plusieurs comptes. Certains comptes sont certifiés, c’est-à-dire que le propriétaire du compte est clairement identifié. Cette fonctionnalité est généralement utilisée par les célébrités ou grandes entreprises. \\
+        Par la suite, les termes de  \og comptes  \fg{} ou  \og utilisateurs  \fg{} sont employés indifféremment pour désigner les comptes d’utilisateurs.
+
+        \paragraph{Tweets.}
+        Les messages diffusés sur Twitter sont appelés des tweets. Ils sont limités à 140 caractères  et peuvent être associés à des images ou des fichiers audio ou vidéo. Il est également possible d’intégrer un lien vers une page web dans le tweet (l’URL est automatiquement raccourcie par Twitter afin de limiter le nombre de caractères utilisés). \\
+        Par la suite, les termes de  \og tweets  \fg{} ou  \og messages  \fg{} sont employés indifféremment.
+
+        \paragraph{Mentions.}
+        Dans un tweet, il est possible de mentionner un autre utilisateur en écrivant son nom d’utilisateur précédé du symbole ‘@’ (par exemple ‘@CNCRES’). Celui-ci reçoit alors une notification l’informant qu’il a été mentionné. Lorsqu’un utilisateur répond à un tweet, l’émetteur du premier tweet est mentionné dans la réponse.
+
+        \paragraph{Abonnés et abonnements.}
+        Le moyen privilégié d’accéder à du contenu sur Twitter est de s’abonner à des comptes. Les tweets des comptes auxquels un utilisateur est abonné s’affichent automatiquement sur son  \og mur  \fg{}. Twitter désigne les abonnements par le terme  \og d’amis  \fg{} (friends). Inversement, les utilisateurs qui s’abonnent à un compte sont désignés par le terme de  \og followers  \fg{} (abonnés). Le nombre d’abonnés peut donc être utilisé comme un indicateur de la popularité et de l’influence sur Twitter, puisqu’il mesure l’audience d’un compte. Le lien abonné-abonnement peut être réciproque si deux utilisateurs s’abonnent l’un à l’autre. \\
+        Par la suite, les termes  \og d’abonné  \fg{} et  \og abonnements  \fg{} sont utilisés.
+
+        \paragraph{Retweets.}
+        Les retweets désignent les messages publiés par un utilisateur qui sont ensuite partagés et rediffusés par d’autres utilisateurs. Un retweet est visible par les abonnés du compte qui l’a partagé, même s’ils ne sont pas abonnés à l’émetteur initial du message. Le retweet augmente donc l’audience d’un tweet et constitue un indicateur de son influence.
+
+        \paragraph{Favoris.}
+        Un utilisateur peut ajouter à ses favoris un tweet qu’il consulte. Cette fonctionnalité peut être utilisée comme un  \og marque-page  \fg{}, afin de retrouver plus tard un contenu jugé intéressant. Elle peut aussi plus simplement être utilisée pour notifier à l’auteur que l’on a apprécié le tweet, sans pour autant vouloir le partager.
+
+        \paragraph{Hashtags.}
+        Le terme de hashtag désigne les mots clés utilisés dans un tweet pour permettre son référencement. Les hashtags sont précédés du symbole \#. Ainsi, les tweets relatifs à l’ESS peuvent faire apparaitre dans le texte le hashtag ‘\#ESS’. Il est possible d’effectuer des recherches par mot clé dans l’interface Twitter : on obtiendra alors une liste de tweets intégrant le hashtag recherché. Les utilisateurs convergent souvent vers des hashtags populaires comme  \og \#socent  \fg{} pour  \og entreprise sociale  \fg{}.
+
+        \paragraph{Type de données disponibles.}
+        Un grand nombre de métadonnées sont associées à chaque compte et à chaque tweet. Certaines sont accessibles directement par l’interface web, comme le contenu du message, les mentions, les hashtags ou encore la biographie d’un utilisateur. D’autres sont privées et ne sont accessibles que par l’utilisateur lui-même ou par les administrateurs. Enfin, certaines informations sont disponibles mais ne sont pas visibles sur l’interface web. Twitter met à disposition une interface développeurs (API) permettant d’accéder à une quantité importante de métadonnées. L’ensemble des métadonnées accessibles est détaillé dans la documentation : \url{https://dev.twitter.com/overview/api}.
+
+
+    \subsubsection{Twitter dans la recherche}
+
+        Créé en 2006, Twitter constitue une source de données récente. Toutefois, le volume d’informations disponible est considérable et ce matériau a déjà été mobilisé pour la recherche. Comme le montre le tableau \ref{table:1}, des problématiques diverses peuvent être étudiées à l’aide de ce type de données, et les méthodes mobilisées sont aussi bien qualitatives que quantitatives.
+
+        \textcite{bruns2012how} s’intéresse ainsi à la structure des conversations qui se déroulent sur le réseau et met en évidence le rôle de différents acteurs dans ces conversations. Les interactions sur le réseau intéressent aussi \textcite{xu2014talking} qui étudient la façon dont les citoyen prennent part au débat politique en relation avec les journalistes. D’autres s’intéressent à la diffusion des informations sur Twitter, en fonction des caractéristiques des images diffusées \parencite{stefanone2015image} ou de la proximité géographique, idéologique, économique ou culturelle \parencite{kwon2015spatiotemporal}. La diffusion de différentes opinions dans le cadre d’un débat (en l’occurrence celui de la neutralité du net) est également étudiée par \textcite{lee2015shaping} qui constatent un déséquilibre entre les positions exprimées. Twitter est également utilisé pour identifier des leaders d’opinion \parencite{xu2014twitter}. Les chercheurs s’intéressant à l’économie sociale ont également mobilisé Twitter comme matériau d’étude. \textcite{waters2011tweet} constatent que les organisations du secteur non lucratif adoptent une communication à sens unique, mobilisant le réseau social pour diffuser de l’information auprès de leurs abonnés. Leurs interactions avec d’autres utilisateurs sont par contre limitées et elles ne bénéficient pas de la dynamique participative rendue possible par Twitter. Deux études de \textcite{guo2014tweeting,guo2017speaking} s’intéressent à l’usage des réseaux sociaux et particulièrement de Twitter par le secteur non lucratif.  La première compare l’utilisation par ses entreprises de différents réseaux sociaux, montrant la prédominance de Facebook et Twitter. Soulignant la grande diversité d’usage de Twitter par les organisations à but non lucratif (le nombre de tweets publiés varie de 0 à plus de 1 000 dans leur panel), les auteurs montrent que ce média est utilisé principalement à titre d’information (69 \%), dans une moindre mesure àpour constituer une communauté (20 \%), et enfin pour appeler à l’action (11 \%). Onze tactiques adoptées à des fins de plaidoyers sont également mises en évidence. La seconde étude questionne la capacité à être entendu et à maintenir une audience à travers un média qui véhicule une quantité considérable d’informations dans tous les domaines. Elle montre que la taille du réseau d’un utilisateur (nombre d’abonnés), la fréquence de publications de tweets, la stratégie de ciblage (mentions d’autres comptes dans un tweet) et la diffusion de contenus visuels sont positivement associés à l’attention accordée à un tweet (mesurée par le nombre de retweets et le nombre de mises en favori). \\
+
+        Différentes modalités de collecte et d’analyse des données sont mobilisées. \textcite{bruns2012how} a recourt au programme yourTwapper-keeper (yTK) associé au logiciel Gawk qui fonctionne en lignes de commandes. Dans plusieurs cas, le langage informatique Python est utilisé pour interroger l’API de Twitter\footnote{Grégory Saxton et son ancien doctorant Weiai Wayne Xu mettent à disposition des scripts ainsi que des tutoriels sur leurs blogs respectifs (\url{http://social-metrics.org/} et \url{http://www.curiositybits.com/}) } \parencite{guo2014tweeting,guo2017speaking,stefanone2015image,xu2014twitter,xu2014talking}. Certaines études ne précisent pas les modalités de collecte, toutefois l’usage d’un programme similaire est probable.\\
+
+        La majorité des études s’appuient sur une combinaison de plusieurs méthodes. Les approches quantitatives sont nombreuses, mais sont dans la plupart des cas précédées d’un codage permettant de quantifier ou catégoriser les données issues de Twitter. \textcite{xu2019does} proposent toutefois une analyse quantitative sans traitement qualitatif préalable, en s'appuyant uniquement sur des données quantifiables comme le nombre d'interactions ou la centralité de l'utilisateur dans le réseau. Les statistiques descriptives sont fréquemment utilisées pour décrire le comportement des utilisateurs sur le RS et des statistiques multivariées permettent de mettre en évidence des relations entre différentes variables. Trois études ont recours à des approches visuelles des réseaux grâce à des logiciels comme Gephi ou NodeXL \parencite{bruns2012how,xu2014twitter,xu2014talking}.\\
+        \clearpage
+
+        \begin{landscape}
+        \begin{spacing}{1}
+        \begin{longtable}{
+            |>{\setlength{\baselineskip}{0.75\baselineskip}}K{2.5cm}
+            |>{\setlength{\baselineskip}{0.75\baselineskip}}K{3cm}
+            |>{\setlength{\baselineskip}{0.75\baselineskip}}K{5cm}
+            |>{\setlength{\baselineskip}{0.75\baselineskip}}K{6.2cm}
+            |>{\setlength{\baselineskip}{0.75\baselineskip}}K{6.2cm}|}
+
+        \caption{Utilisation de Twitter dans la recherche}
+        \label{table:1} \\ \hline
+
+            \multicolumn{1}{|c|}{\textbf{Auteurs}}
+            & \multicolumn{1}{c|}{\textbf{Echantillon}}
+            & \multicolumn{1}{c|}{\textbf{Focus }}
+            & \multicolumn{1}{c|}{\textbf{Méthode }}
+            & \multicolumn{1}{c|}{\textbf{Principaux résultats}}  \\ \hline
+            \endfirsthead
+            \hline
+            \multicolumn{1}{|c|}{\textbf{Auteurs}}
+            & \multicolumn{1}{c|}{\textbf{Echantillon}}
+            & \multicolumn{1}{c|}{\textbf{Focus }}
+            & \multicolumn{1}{c|}{\textbf{Méthode }}
+            & \multicolumn{1}{c|}{\textbf{Principaux résultats}} \\ \hline
+            \endhead
+            \multicolumn{5}{|l|}{\textbf{\textit{Articles non relatifs à l’ESS ou au secteur non lucratif}}} \\ \hline
+
+            \textcite{bruns2012how}
+            &
+            &Evolution des conversations twitter et rôle des acteurs
+            &Collecte : yTK et Gawk \newline Analyse : visualisation des réseaux (Gephi)
+            &Proposition de méthode pour une analyse dynamique
+            \\ \hline
+
+            \textcite{xu2014talking}
+            &3 699 tweets retenus parmi 91015
+            &Dynamiques de pouvoir entre les citoyens et les journalistes sur Twitter
+            &Collecte : Python \newline Analyse qualitative (codage) permettant une analyse quantitative (statistiques descriptives)
+            &Participation active des citoyens en partageant les contenus des journalistes et en exprimant leur propre opinion. Les citoyens engagés interagissent davantage avec les journalistes partageant leur orientation politique.
+            \\ \hline
+
+            \textcite{xu2014twitter}
+            &125 907 tweets \newline Analyse porte sur 3 319 tweets par 2 767 utilisateurs
+            &Partage des connaissances au sein d’une communauté de pratiques sur Twitter
+            &Collecte : Python \newline Analyse qualitative (codage) permettant une analyse quantitative (statistiques descriptives et visualisation des réseaux)
+            &Mise en évidence d’un réseau décentralisé. Les conversations ont généralement lieu entre participants ayant le même rôle et sont souvent discontinues et non-réciproques
+            \\ \hline
+
+            \textcite{xu2014predicting}
+            &1 000 utilisateurs sélectionnés parmi 8 957 identifiés --> 3546 tweets
+            &Identification des leaders d’opinion dans le domaine de l’activisme politique
+            &Analyse des réseaux (NodeXL)\newline Analyse qualitative (codage) permettant une analyse quantitative (régressions)
+            &Plus forte influence des organisations que des particuliers \newline La centralité dans le réseau impacte positivement l’influence
+            \\ \hline
+
+            \textcite{kwon2015spatiotemporal}
+            &NC \newline 5 \% du volume collecté est codé
+            &Diffusion des informations selon la proximité
+            &Collecte : programme ad hoc. \newline Analyse qualitative (codage) permettant une analyse quantitative (modèle mathématique de la diffusion)
+            &Développement d’un modèle spatio-temporel de la diffusion
+            \\ \hline
+
+            \textcite{lee2015shaping}
+            &6 289 tweets \newline 150 articles analysés
+            &Informations diffusées sur Twitter à propos du débat sur la neutralité d’internet
+            &Analyse qualitative (codage du contenu) permettant une analyse quantitative (statistiques descriptive)
+            &Diversité des parties prenantes qui s’expriment mais pas de diversité des points de vue représentés
+            \\ \hline
+
+            \textcite{stefanone2015image}
+            &15 840 tweets – 290 images analysées
+            &Impact des attributs de l’utilisateur et des caractéristiques images publiées sur leur diffusion sur Twitter
+            &Collecte : Python ; Codage de données visuelles permettant une analyse quantitative (statistiques descriptives et multivariées, régressions)
+            &Diffusion plus importante des visuels reposant sur la peur et l’humour, contrairement à la rationalité, l’émotion ou le sexe. Les messages positifs sont également mieux diffusés
+            \\ \hline
+
+            \multicolumn{5}{|l|}{\textbf{\textit{Articles relatifs à l’ESS ou au secteur non lucratif}}} \\ \hline
+
+            \textcite{waters2011tweet}
+            &27 comptes – tweets de mars 2010
+            &Modalité de communication des organisations du secteur non lucratif sur Twitter
+            &Analyse qualitative (codage) ; Analyse quantitative (statistiques descriptives)
+            &Le réseau est principalement utilisé pour diffuser des messages à sens unique. La dimension communautaire est peu utilisée.
+            \\ \hline
+
+            \textcite{guo2014tweeting}
+            &150 organisations - 750 tweets sélectionnés aléatoirement sur une période d’un mois
+            &Usage des réseaux sociaux par les entreprises du secteur non-lucratif. Focus sur les tactiques de plaidoyer sur Twitter
+            &Collecte :  Python ; Analyse quantitative descriptive (modalités d’usages) ; Analyse qualitative du texte, codage (identification des tactiques)
+            &Utilisation principalement pour informer une audience. 11 tactiques de plaidoyer identifiées
+            \\ \hline
+
+            \textcite{guo2017speaking}
+            &219 915 tweets par 145 organisations
+            &Stratégie des utilisateurs pour obtenir l’attention de leur audience sur Twitter
+            &Collecte :  Python ; Analyse quantitative multivariée (régressions)
+            &L’attention accordée augmente avec la taille du réseau de l’émetteur, la fréquence des tweets, la stratégie de ciblage et l’adjonction de contenu visuel
+            \\ \hline
+
+            \textcite{xu2019does}
+            & 198 organisations - tweets de juillet 2014 à janvier 2015
+            &Lien entre les stratégies d'engagement des parties prenantes et le capital social obtenu
+            &Collecte : Python; Analyse : Régressions (OLS)
+            &L'obtention de capital social des \textit{nonprofits} sur Twitter dépend de la quantité, mais surtout de la qualité et de la diversité des interactions sur le réseau.
+            \\ \hline
+
+        \end{longtable}
+        \end{spacing}
+        \end{landscape}
+
+
+
+    Encore peu utilisés comme source de données pour la recherche académique, les réseaux sociaux \citit{offrent nombre de challenges et d'opportunités pour les chercheurs qui s'intéressent au reporting et à la responsabilité des entreprises} \parencite[][p. 161]{saxton2016csr}. Plusieurs raisons nous ont poussé à choisir Twitter pour notre recherche. Tout d'abord, d'un point de vue pratique, le réseau offre un accès facile aux données,  à l'aide d'une API (interface technique permettant de communiquer avec la base de données de tweets). Dans la mesure où les tweets sont très majoritairement publics (seule une minorité d'utilisateurs choisissent de limiter l'accès à leurs publications), les données peuvent être collectées avec peu de restriction. A l'inverse, l'accès aux données des réseaux sociaux comme Facebook ou Linkedin est beaucoup plus limité et contrôlé. Le deuxième aspect pris en compte est celui du volume de données. L'obtention de suffisamment de données est souvent un enjeu en sciences de gestion. Or, quel que soit le champ étudié, le volume de données produit chaque jour sur Twitter est considérable. Des entreprises de tous les secteurs d'activités disposent d'un compte, mais aussi des politiciens, journalistes ou simplement des personnes intéressés par une grande variété de sujets. Si la qualité des données peut soulever des difficultés et nécessité des traitements préalables, elles sont en revanche en quantité illimitée et sans cesse renouvelées. Sur le fond, le contenu apporte une richesse supplémentaire par rapport à des documents institutionnels, en ceci qu'il dépasse le simple reporting pour établir une réelle communication \parencite{saxton2016csr}. Pour Saxton, les entreprises présentes sur Twitter ne peuvent se limiter à une communication unidirectionnelle, mais sont amenées à interagir avec leurs parties prenantes, qui peuvent les interpeler. Twitter est donc \citit{un outil d'éducation public et de mobilisation} \parencite[][p. 164]{saxton2016csr}. Il est tout à fait pertinent pour étudier les questions qui se rapportent à la RSE, celles-ci étant étroitement liées à l'interaction entre les entreprises et leurs parties prenantes. Nous nous appuyons sur cette littérature pour mettre en place notre étude du discours des \eess sur Twitter. Quelques recherches se sont déjà intéressées aux pratiques du secteur non lucratif sur le réseau social \parencite{waters2011tweet, guo2014tweeting, guo2017speaking}. Cependant, à notre connaissance, notre étude est la première à élargir le spectre au périmètre plus étendu de l'ESS et à comparer le discours tenu par les organisations ayant différents statuts. \\
+
+
+    Dans les sections suivantes, nous présentons le processus de collecte des données, puis les différentes étapes de l'analyse. Celles-ci sont résumés dans le tableau \ref{table:etapestwitter}.
